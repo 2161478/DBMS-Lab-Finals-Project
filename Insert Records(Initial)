@@ -1,0 +1,95 @@
+package finals;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Controller {
+    private Connection connection;
+    private Statement statement;
+    private PreparedStatement pStatement;
+    private ResultSet resultSet;
+    private String sql;
+    
+    public void dbaseConnect(String url, String user, String pass) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        connection = DriverManager.getConnection(url, user, pass);
+    }
+    
+    /**
+     * Inserts new row into the table department
+     * 
+     * @param depid
+     * @param dname
+     * @throws SQLException
+     */
+    public void createDepartment(String depid, String dname) throws SQLException {
+    	sql = "insert into department values(?,?)";
+    	pStatement = connection.prepareStatement(sql);
+    	pStatement.setString(1, depid);
+    	pStatement.setString(2, dname);
+    	pStatement.executeUpdate();
+    }
+    
+    /**
+     * Inserts a new row into the table employee
+     * 
+     * @param empid
+     * @param ename
+     * @param job
+     * @param hireDate
+     * @param projid
+     * @throws SQLException
+     */
+    public void createEmployee(String empid, String ename, String job, String hireDate, String projid) throws SQLException {
+    	sql = "insert into employee values(?,?,?,?,?)";
+    	pStatement = connection.prepareStatement(sql);
+    	pStatement.setString(1, empid);
+    	pStatement.setString(2, ename);
+    	pStatement.setString(3, job);
+    	pStatement.setString(4, hireDate);
+    	pStatement.setString(5, projid);
+    	pStatement.executeUpdate();
+    }
+    
+    /**
+     * Inserts a new row into the table emoproj
+     * 
+     * @param date
+     * @param hourlyRate
+     * @param empid
+     * @param projid
+     * @throws SQLException
+     */
+    public void createEmployeeProject(String date, double hourlyRate, String empid, String projid) throws SQLException {
+    	sql = "insert into employee values(?,?,?,?)";
+    	pStatement = connection.prepareStatement(sql);
+    	pStatement.setString(1, date);
+    	pStatement.setDouble(2, hourlyRate);
+    	pStatement.setString(3, empid);
+    	pStatement.setString(4, projid);
+    	pStatement.executeUpdate();
+    }
+    
+    /**
+     * Inserts a new row into the table prject.
+     * 
+     * @param projid
+     * @param projname
+     * @param status
+     * @param deptid
+     * @throws SQLException
+     */
+    public void createProject(String projid, String projname, String status, String deptid) throws SQLException {
+    	sql = "insert into employee values(?,?,?,?)";
+    	pStatement = connection.prepareStatement(sql);
+    	pStatement.setString(1, projid);
+    	pStatement.setString(2, projname);
+    	pStatement.setString(3, status);
+    	pStatement.setString(4, deptid);
+    	pStatement.executeUpdate();
+    }
+}
