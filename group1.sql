@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employee` (
-  `empid` int(11) NOT NULL,
+  `empid` int(11) NOT NULL AUTO_INCREMENT,
   `ename` varchar(45) NOT NULL,
   `job` varchar(45) NOT NULL,
   `hiredate` date NOT NULL,
@@ -59,9 +59,8 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`empid`),
   KEY `mgrid_idx` (`mgrid`),
   KEY `deptid_idx` (`deptid`),
-  CONSTRAINT `deptid` FOREIGN KEY (`deptid`) REFERENCES `department` (`deptid`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `mgrid` FOREIGN KEY (`mgrid`) REFERENCES `employee` (`empid`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `deptid` FOREIGN KEY (`deptid`) REFERENCES `department` (`deptid`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +69,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'Gaspar','Programmer','2017-12-02','1998-08-25',NULL,NULL);
+INSERT INTO `employee` VALUES (1,'Gaspar','Programmer','2017-12-02','1998-08-25',NULL,NULL),(2,'Cramden','Coder','2014-09-04','2001-10-14',1,1),(4,'Nic','Coder','2017-02-06','1998-02-06',1,1),(6,'Karen','Programmer','2017-12-06','1999-09-08',1,1);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,8 +116,9 @@ CREATE TABLE `project` (
   `dept` int(11) DEFAULT NULL,
   `projhead` int(11) NOT NULL,
   PRIMARY KEY (`projid`),
-  KEY `projhead_idx` (`projhead`),
   KEY `dept_idx` (`dept`),
+  KEY `empid_idx` (`projhead`),
+  KEY `projhead_idx` (`projhead`),
   CONSTRAINT `dept` FOREIGN KEY (`dept`) REFERENCES `department` (`deptid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `projhead` FOREIGN KEY (`projhead`) REFERENCES `employee` (`empid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -143,4 +143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-06  9:50:55
+-- Dump completed on 2017-12-08 20:28:21
