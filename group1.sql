@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `group1` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `group1`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: group1
 -- ------------------------------------------------------
--- Server version	5.7.19
+-- Server version	5.7.9
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `project`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `project` (
-  `projid` int(11) NOT NULL,
+  `projid` int(11) NOT NULL AUTO_INCREMENT,
   `projname` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   `dept` int(11) DEFAULT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE `project` (
   KEY `projhead_idx` (`projhead`),
   CONSTRAINT `dept` FOREIGN KEY (`dept`) REFERENCES `department` (`deptid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `projhead` FOREIGN KEY (`projhead`) REFERENCES `employee` (`empid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,4 +143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-08 20:28:21
+-- Dump completed on 2017-12-09 10:06:02
