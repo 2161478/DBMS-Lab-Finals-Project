@@ -1,0 +1,80 @@
+	public void createDepartment(String dname) throws SQLException
+	{
+		sql = "insert into department (dname) values(?)";
+		pStatement = connection.prepareStatement(sql);
+		pStatement.setString(1, dname);
+		pStatement.executeUpdate();
+	}
+public void createEmployee(String ename, String job, String hireDate, String bDay, String mgrid, String deptid)
+			throws SQLException
+	{
+		DateFormat dateFormat = null;
+		Date date = null;
+		String sqlA = "insert into employee (ename, job, hireDate, bDay, mgrid, deptid) values (?, ?, ?, ?, ?, ?)";
+		try {
+			// DateFormat dateFormat = null;
+			// Date date = null;
+			dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			date = dateFormat.parse(bDay);
+		} catch (Exception ie) {
+
+		}
+		pStatement = connection.prepareStatement(sqlA);
+		//.setNull(1, java.sql.Types.Date);
+		
+		if (mgrid.equals(""))
+		{
+			pStatement.setNull(5,java.sql.Types.INTEGER);
+		}
+		else
+		{
+			pStatement.setString(5, mgrid);
+		}
+		if (deptid.equals(""))
+		{
+			pStatement.setNull(6,java.sql.Types.INTEGER);
+		}
+		else
+		{
+			pStatement.setString(6, deptid);
+		}
+		
+		pStatement.setString(1, ename);
+		pStatement.setString(2, job);
+		pStatement.setString(3, hireDate);
+		pStatement.setString(4, dateFormat.format(date));
+		
+		
+		pStatement.executeUpdate();
+	}
+public void createEmployeeProject(int empid, int projid, String startdate, double hourlyrate) throws SQLException
+	{
+		String sqlA = "insert into empproj (empid, projid,startdate, hourlyrate ) values (?,?,?,?)";
+		DateFormat dateFormat = null;
+		Date date = null;
+		try {
+
+			dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			date = dateFormat.parse(startdate);
+		} catch (Exception ie) {
+			
+		}
+		pStatement = connection.prepareStatement(sqlA);
+		pStatement.setString(1, "" + empid);
+		pStatement.setString(2, "" + projid);
+		// System.out.println(startDate);
+		pStatement.setString(3, dateFormat.format(date));
+		pStatement.setString(4, "" + hourlyrate);
+
+		pStatement.executeUpdate();
+	}
+public void createProject(String projname, String status, String dept, String projHead) throws SQLException
+	{
+		sql = "insert into project (projname, status, dept, projhead) values(?,?,?,?);";
+		pStatement = connection.prepareStatement(sql);
+		pStatement.setString(1, projname);
+		pStatement.setString(2, status);
+		pStatement.setString(3, dept);
+		pStatement.setString(4, projHead);
+		pStatement.executeUpdate();
+	}

@@ -1,0 +1,87 @@
+//MAIN CLASS ONLY
+private static void addEmployee()
+	{
+		// printDivider();
+
+		System.out.print("Enter name: ");
+		String name = kbd.nextLine();
+
+		System.out.print("Enter job: ");
+		String job = kbd.nextLine();
+
+		System.out.print("Enter hiredate (Ex:2017-05-02) :");
+		String hiredate = kbd.nextLine();
+
+		System.out.print("Enter bday: (Ex:1998-05-02): ");
+		String bday = kbd.nextLine();
+		System.out.print("Enter manager id (Ex: 1): ");
+		String managerid = kbd.nextLine();
+		
+		
+		System.out.print("Enter department id (Ex: 1): ");
+		String department = kbd.nextLine();
+
+		try {
+			controller.createEmployee(name, job, hiredate, bday, managerid, department);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(name + " was successfully added in the employee list.");
+		printDivider();
+		System.out.println();
+	}
+private static void addDepartment()
+	{
+		// printDivider();
+		System.out.print("Enter Department Name: ");
+		String name = kbd.nextLine();
+
+		try {
+			controller.createDepartment(name);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(name + " was successfully added in the department list.");
+		printDivider();
+		System.out.println();
+	}
+private static void addProject()
+	{
+		// printDivider();
+		System.out.print("Enter Project Name: ");
+		String name = kbd.nextLine();
+		System.out.print("Enter Status of the Project: ");
+		String status = kbd.nextLine();
+		System.out.print("Enter Department in which the project belongs: ");
+		String deptid = kbd.nextLine();
+		System.out.print("Enter Project Head: ");
+		String projHead = kbd.nextLine();
+
+		try {
+			controller.createProject(name, status, deptid, projHead);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(name + " was successfully added in the project list.");
+		printDivider();
+		System.out.println();
+	}
+public static void addEmpProj()
+	{
+		System.out.print("Enter employee id: ");
+		int empID = Integer.parseInt(kbd.nextLine());
+		System.out.print("Enter project id: ");
+		int projID =  Integer.parseInt(kbd.nextLine());
+		System.out.print("Enter hour rate: ");
+		double hrRate = Double.parseDouble(kbd.nextLine());
+		System.out.print("Enter start date of employee (Ex:2017-05-02): ");
+		String startDate = kbd.nextLine();
+		try {
+			controller.createEmployeeProject(empID, projID, startDate, hrRate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Successfully added in the employee project list.");
+		printDivider();
+		System.out.println();
+	}
