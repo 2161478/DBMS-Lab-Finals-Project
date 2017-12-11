@@ -1,0 +1,157 @@
+private static void printAllEmployees() { //prints all employees 
+	printDivider();
+	try {
+	    ResultSet rs = controller.getAllEmployee();
+	    if (getResTotal(rs) == 0) {
+		System.out.println("Error: no records found!!!");
+	    } else {
+		System.out.println("Employee listing:");
+		System.out.printf("     %-20s %-20s %-20s %-20s %-20s %-20s%n", "Name", "Job", "Hire Date", "Birth Day",
+			"Manager", "Department");
+		int row = 1;
+		while (rs.next()) {
+		    String name = rs.getString(1);
+		    String job = filterNull(rs.getString(2));
+		    String hiredate = filterNull(rs.getString(3));
+		    String bday = rs.getString(4);
+		    String manager = filterNull(rs.getString(5));
+		    String department = filterNull(rs.getString(6));
+		    System.out.printf("%-4d %-20s %-20s %-20s %-20s %-20s %-20s%n", row++, name, job, hiredate, bday,
+			    manager, department);
+		}
+	    }
+	    printDivider();
+	    System.out.println();
+	} catch (Exception e) {
+	    System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+	}
+    }
+
+    private static void printAllProjects() { //prints all projects
+	printDivider();
+	try {
+	    ResultSet rs = controller.getAllProject();
+	    if (getResTotal(rs) == 0) {
+		System.out.println("Error: no records found!!!");
+	    } else {
+		System.out.println("Project listing:");
+		System.out.printf("     %-20s %-20s %-20s%n", "Project Name", "Status", "Department");
+		int row = 1;
+		while (rs.next()) {
+		    String name = rs.getString(1);
+		    String status = filterNull(rs.getString(2));
+		    String department = filterNull(rs.getString(3));
+		    System.out.printf("%-4d %-20s %-20s %-20s%n", row++, name, status, department);
+		}
+	    }
+	    printDivider();
+	    System.out.println();
+	} catch (Exception e) {
+	    System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+	}
+    }
+
+    private static void printAllDepartments() { //prints all departments
+	printDivider();
+	try {
+	    ResultSet rs = controller.getAllDepartment();
+	    if (getResTotal(rs) == 0) {
+		System.out.println("Error: no records found!!!");
+	    } else {
+		System.out.println("Department listing:");
+		System.out.printf("     %-20s%n", "Department");
+		int row = 1;
+		while (rs.next()) {
+		    String name = rs.getString(1);
+		    System.out.printf("%-4d %-20s%n", row++, name);
+		}
+	    }
+	    printDivider();
+	    System.out.println();
+	} catch (Exception e) {
+	    System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+	}
+    }
+
+    private static void printAllProjectEmployee() { // prints all employees working in a project
+	printDivider();
+	try {
+	    System.out.print("Enter name of the project: ");
+	    String projName = kbd.nextLine();
+	    ResultSet rs = controller.getProjectEmployee(projName);
+	    if (getResTotal(rs) == 0) {
+		System.out.println("Error: no records found!!!");
+	    } else {
+		System.out.println("Employees working in Project " + projName + ": ");
+		System.out.printf("     %-20s %-20s %-20s%n", "Employees", "Date Started", "Hourly Rate");
+		int row = 1;
+		while (rs.next()) {
+		    String name = rs.getString(1);
+		    String dateStarted = filterNull(rs.getString(2));
+		    String hourlyRate = filterNull(rs.getString(3));
+		    System.out.printf("%-4d %-20s %-20s %-20s%n", row++, name, dateStarted, hourlyRate);
+		}
+	    }
+	    printDivider();
+	    System.out.println();
+	} catch (Exception e) {
+	    System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+	}
+    }
+
+    private static void printAllEmployeeProject() { // prints all projects an employee is working on
+	printDivider();
+	try {
+	    System.out.print("Enter name of the employee: ");
+	    String empName = kbd.nextLine();
+	    ResultSet rs = controller.getEmployeeProject(empName);
+	    if (getResTotal(rs) == 0) {
+		System.out.println("Error: no records found!!!");
+	    } else {
+		System.out.println("Projects " + empName + " is working on: ");
+		System.out.printf("     %-20s %-20s %-20s%n", "Project", "Date Started", "Hourly Rate");
+		int row = 1;
+		while (rs.next()) {
+		    String project = rs.getString(1);
+		    String dateStarted = filterNull(rs.getString(2));
+		    String hourlyRate = filterNull(rs.getString(3));
+		    System.out.printf("%-4d %-20s %-20s %-20s%n", row++, project, dateStarted, hourlyRate);
+		}
+	    }
+	    printDivider();
+	    System.out.println();
+	} catch (Exception e) {
+	    System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+	}
+    }
+
+    private static void printAllEmployeesOfDepartment() { //prints all employees from a department
+	printDivider();
+	try {
+	    System.out.print("Enter name of the department: ");
+	    String deptName = kbd.nextLine();
+	    ResultSet rs = controller.getEmployeesFromDepartment(deptName);
+	    if (getResTotal(rs) == 0) {
+		System.out.println("Error: no records found!!!");
+	    } else {
+		System.out.println("Employees from " + deptName + " department: ");
+		System.out.printf("     %-20s %-20s %-20s%-20s %-20s %-20s%n", "Employee ID", "Name", "Job",
+			"Hire Date", "Birth Date", "Manager");
+		int row = 1;
+		while (rs.next()) {
+		    String empid = rs.getString(1);
+		    String name = rs.getString(2);
+		    String job = rs.getString(3);
+		    String hiredate = rs.getString(4);
+		    String birthdate = rs.getString(5);
+		    String manager = rs.getString(6);
+		    System.out.printf("%-4d %-20s %-20s %-20s%-20s %-20s %-20s%n", row++, empid, name, job, hiredate,
+			    birthdate, manager);
+		}
+	    }
+	    printDivider();
+	    System.out.println();
+	} catch (Exception e) {
+	    System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+	}
+    }

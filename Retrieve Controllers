@@ -1,0 +1,125 @@
+/**
+     * Returns all the departments present in the database
+     * @return Result set of the query
+     * @throws SQLException Thrown when an SQLException occurs
+     */
+    public ResultSet getAllDepartment() throws SQLException {
+	statement = connection.createStatement();
+	sql = "select dName from department";
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Returns all of the employees from employee table
+     * @return result set of the query
+     * @throws SQLException Thrown when an exception occurs
+     */
+    public ResultSet getAllEmployee() throws SQLException{
+	statement = connection.createStatement();
+	sql = "select a.ename, a.job, a.hiredate, a.bday, b.empid, a.deptid from employee a left join " +
+		"employee b on a.mgrid = b.empid;";
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Returns all the employees  with the corresponding projects they are currently working on.
+     * @return a resultset of all the employees from the employee table
+     * @throws SQLException Thrown when an exception occurs
+     */
+    public ResultSet getAllEmployeeProject() throws SQLException{
+	statement = connection.createStatement();
+	sql = "select ename 'Name', projectName 'Project', date, hourlyRate from empproj natural join employee " +
+		"natural join project;";
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Returns all the prjects in the project table
+     * @return a result sset of all the projects
+     * @throws SQLException Thrown when an exception occurs
+     */
+    public ResultSet getAllProject() throws SQLException{
+	statement = connection.createStatement();
+	sql = "select projname, status, dname from project join department on dept = deptid;";
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Returns the information about department
+     *
+     * @param deptName the department name to be searched.
+     * @throws SQLException Thrown when an SQLException occurs
+     */
+    public ResultSet getDepartment(String deptName) throws SQLException {
+	sql = "select * from departments where dname = ?;";
+	pStatement = connection.prepareStatement(sql);
+	pStatement.setString(1, deptName);
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Returns the information about a particular employee
+     * @param ename name of the employee to be searched
+     * @return returns the a resultset about a particular employee
+     * @throws SQLException Thrown when an exception occurs
+     */
+    public ResultSet getEmployee(String ename) throws SQLException{
+	sql = "select a.empid, ename, job, hiredate,bday, b.empid, deptid from employee a left join employee b " +
+		"on mgrid = b.empid where ename = ?;";
+	pStatement = connection.prepareStatement(sql);
+	pStatement.setString(1, ename);
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Retruns an employee and the project/projects he/she is currently working on.
+     * @param name name of an employee
+     * @return a resultset of all the projects an employee is currently working on
+     * @throws SQLException Thrown when an exception occurs
+     */
+    public ResultSet getEmployeeProject(String name) throws SQLException{
+	statement = connection.createStatement();
+	sql = "select ename, projName, startdate, hourlyRate from empproj natural join employee " +
+		"natural join project where ename = \"" + name + "\";";
+	return statement.executeQuery(sql);
+    }
+     /**
+     * Returns the information about department
+     *
+     * @param deptName the department name to be searched.
+     * @throws SQLException Thrown when an SQLException occurs
+     */
+    public ResultSet getEmployeesFromDepartment(String deptName) throws SQLException {
+	statement = connection.createStatement();
+	sql = "select a.empid, a.ename, a.job, a.hiredate, a.bday, b.ename from (employee a left "
+		+ "join employee b on b.empid = a.mgrid) join department d on a.deptid = d.deptid where dname = \"" +deptName + "\";";
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Returns the information about a project
+     * @param projname name of the project to be searched
+     * @return a result set of a project
+     * @throws SQLException Thrown when an exception occurs
+     */
+    public ResultSet getProject(String projname) throws SQLException{
+	statement = connection.createStatement();
+	sql = "select projid, projname, status, dname from project join department " +
+		"on dept = deptid where projname = ?;";
+	pStatement = connection.prepareStatement(sql);
+	pStatement.setString(1, projname);
+	return statement.executeQuery(sql);
+    }
+
+    /**
+     * Returns an project and the employees working on it.
+     * @param projid project to be searched
+     * @return a result set of a project and all of the employees currently working on it
+     * @throws SQLException Thrown when an exception occurs
+     */
+    public ResultSet getProjectEmployee(String projname) throws SQLException{
+	statement = connection.createStatement();
+	sql = "select ename, projName, startdate, hourlyRate from empproj natural join employee " +
+		"natural join project where projname = \"" + projname + "\";";
+	return statement.executeQuery(sql);
+    }
