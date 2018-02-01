@@ -1,0 +1,25 @@
+    private static void addEmployeeProject() {
+    	printDivider();
+    	try {
+    		boolean loopFlag = true;
+    		while (loopFlag = true) {
+    			System.out.print("Enter employee I.D.: ");
+        		String empid = kbd.nextLine();
+        		System.out.print("Enter project I.D.: ");
+        		String projid = kbd.nextLine();
+        		System.out.print("Enter start date: ");
+        		String date = kbd.nextLine();
+        		System.out.print("Enter hourlyrate: ");
+        		double hourlyRate = Double.parseDouble(kbd.nextLine());
+        		
+        		controller.createEmployeeProject(date, hourlyRate, empid, projid);
+        		
+        		String choice = kbd.nextLine();
+        		System.out.print("Enter another employee project?(Y/N): ");
+        		loopFlag = choice.equalsIgnoreCase("Y")  ? true : false;
+    		}
+    	} catch (MySQLIntegrityConstraintViolationException e) {
+    		
+    	} catch (Exception e) {
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    	}
